@@ -10,19 +10,19 @@ source:
     sha256: ba6f636a62499abd02c5ac8d714ebfbab612fbf1d391e99c2952bad4b55a5941
 
 build:
-  script: {{ PYTHON }} -m pip install .  --no-deps -vv --no-build-isolation --ignore-installed --no-index
-  noarch: python
   number: 0
+  skip: true  # [py<310]
+  script: {{ PYTHON }} -m pip install .  --no-deps -vv --no-build-isolation --ignore-installed --no-index
 
 requirements:
   host:
-    - python ${{ python_min }}.*
+    - python
     - hatchling >=1.5.0
     - hatch-jupyter-builder >=0.5
     - jupyterlab >=4.0.0,<5
     - pip
   run:
-    - python >=${{ python_min }}
+    - python
     - jupyter-collaboration >=4,<5
     - jupyter_server >=2.0.1,<3
     - jupyter_ydoc >=3.0.0,<4
@@ -30,14 +30,13 @@ requirements:
 
 tests:
   - python:
-      python_version: ${{ python_min }}.*
       pip_check: true
       imports: jupyterlab_chat
   - script:
       - jupyter labextension list 2>&1 | rg -ie "jupyterlab-chat-extension.*OK"
     requirements:
       run:
-        - python ${{ python_min }}.*
+        - python
         - jupyterlab >=4.0,<5
         - ripgrep
 
