@@ -39,7 +39,7 @@ test:
     - pip check
     - python -c "from importlib.metadata import version; assert(version('{{ name }}')=='{{ version }}')"
     - jupyter labextension list 2>&1 | rg -ie "jupyterlab-chat-extension.*OK"  # [unix]
-    - jupyter labextension list 2>&1 | findstr /r /i "jupyterlab-chat-extension.*OK"  # [unix]
+    - jupyter labextension list 2>&1 | findstr /r /i "jupyterlab-chat-extension.*OK"  # [win]
 
 about:
   home: https://github.com/jupyterlab/jupyter-chat
